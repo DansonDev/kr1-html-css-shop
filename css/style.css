@@ -52,15 +52,8 @@ body {
   background-color: var(--color-bg);
 }
 
-header,
-main,
-footer {
+main {
   padding: var(--space-lg);
-}
-
-header,
-footer {
-  background-color: var(--color-surface);
 }
 
 /* ===============================
@@ -88,21 +81,41 @@ textarea:focus-visible {
 .button {
   display: inline-block;
   padding: var(--space-sm) var(--space-md);
-  color: var(--color-white);
-  background-color: var(--color-primary);
-  text-decoration: none;
   border: none;
   border-radius: var(--radius-sm);
   font: inherit;
+  text-decoration: none;
   cursor: pointer;
 }
 
-.button:hover {
+.button--primary {
+  color: var(--color-white);
+  background-color: var(--color-primary);
+}
+
+.button--primary:hover {
   color: var(--color-white);
   background-color: var(--color-primary-dark);
 }
 
-button:disabled {
+.button--secondary {
+  color: var(--color-primary);
+  background-color: transparent;
+  border: 1px solid var(--color-primary);
+}
+
+.button--secondary:hover {
+  color: var(--color-white);
+  background-color: var(--color-primary);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.button:disabled,
+.button--disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
@@ -117,14 +130,19 @@ button:disabled {
    =============================== */
 
 .site-header {
-  max-width: var(--container-width);
-  margin: 0 auto;
+  background-color: var(--color-surface);
 }
 
-.site-logo {
-  font-weight: bold;
-  text-decoration: none;
+.site-header__inner {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: var(--space-lg);
+}
+
+.site-header__logo {
+  font-weight: 700;
   color: var(--color-text);
+  text-decoration: none;
 }
 
 .site-nav__list {
@@ -138,7 +156,7 @@ button:disabled {
   list-style: none;
 }
 
-.site-nav__list a {
+.site-nav__link {
   display: inline-block;
   padding: var(--space-sm) var(--space-md);
   color: var(--color-primary);
@@ -146,7 +164,17 @@ button:disabled {
   border-radius: var(--radius-sm);
 }
 
-.site-nav__list a:hover {
+.site-nav__link:hover {
+  color: var(--color-white);
+  background-color: var(--color-primary);
+}
+
+.site-nav__link:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.site-nav__link--active {
   color: var(--color-white);
   background-color: var(--color-primary);
 }
@@ -158,11 +186,11 @@ button:disabled {
   color: var(--color-muted);
 }
 
-.breadcrumbs a {
+.breadcrumbs__link {
   color: var(--color-primary);
 }
 
-.breadcrumbs span::before {
+.breadcrumbs__current::before {
   content: " / ";
   color: var(--color-muted);
 }
@@ -180,7 +208,7 @@ button:disabled {
   margin: 0 auto var(--space-xl);
 }
 
-.section h2 {
+.section__title {
   margin-top: 0;
 }
 
@@ -201,17 +229,40 @@ button:disabled {
   background-color: var(--color-bg);
 }
 
-.product-card .button {
-  margin-top: auto;
-  align-self: flex-start;
-}
-
 .product-card:hover {
   border-color: var(--color-primary);
 }
 
-.product-card h3 {
-  margin-top: 0;
+.product-card--featured {
+  border-color: var(--color-primary);
+}
+
+.product-card--discount {
+  border-color: var(--color-danger);
+}
+
+.product-card__title {
+  margin: 0;
+  color: var(--color-text);
+}
+
+.product-card__description {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+.product-card__price {
+  margin: 0;
+  font-weight: 700;
+}
+
+.product-card--discount .product-card__price {
+  color: var(--color-danger);
+}
+
+.product-card__button {
+  margin-top: auto;
+  align-self: flex-start;
 }
 
 .catalog-layout {
@@ -240,28 +291,33 @@ button:disabled {
   gap: var(--space-md);
 }
 
-.filters-form fieldset {
+.filters-form__group {
   margin: 0;
   padding: var(--space-md);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
 }
 
-.filters-form legend {
+.filters-form__legend {
   font-weight: 700;
 }
 
-.filters-form label {
+.filters-form__label {
   display: block;
   margin-bottom: var(--space-sm);
 }
 
-.filters-form input[type="number"] {
+.filters-form__input {
   width: 100%;
   padding: 8px 10px;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   font: inherit;
+}
+
+.site-footer {
+  padding: var(--space-lg);
+  background-color: var(--color-surface);
 }
 
 .aside-info {
@@ -287,18 +343,22 @@ button:disabled {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.form-field {
+.order-dialog__title {
+  margin-top: 0;
+}
+
+.order-form__field {
   margin-bottom: var(--space-md);
 }
 
-.form-field label {
+.order-form__label {
   display: block;
   margin-bottom: var(--space-xs);
 }
 
-.form-field input,
-.form-field select,
-.form-field textarea {
+.order-form__input,
+.order-form__select,
+.order-form__textarea {
   width: 100%;
   padding: 10px 12px;
   border: 1px solid var(--color-border);
@@ -306,33 +366,40 @@ button:disabled {
   font: inherit;
 }
 
-.form-field input[type="checkbox"] {
+.order-form__input--checkbox {
   width: auto;
 }
 
-.form-field small {
+.order-form__hint {
   display: block;
   margin-top: var(--space-xs);
   color: var(--color-muted);
 }
 
-.form-field input:hover,
-.form-field select:hover,
-.form-field textarea:hover,
-.form-field input:focus,
-.form-field select:focus,
-.form-field textarea:focus {
+.order-form__input:hover,
+.order-form__select:hover,
+.order-form__textarea:hover,
+.order-form__input:focus,
+.order-form__select:focus,
+.order-form__textarea:focus {
   border-color: var(--color-primary);
 }
 
+.order-form__input:focus-visible,
+.order-form__select:focus-visible,
+.order-form__textarea:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
 /* Ошибочная рамка остаётся красной при наведении и фокусе. */
-.form-field input[aria-invalid="true"],
-.form-field select[aria-invalid="true"],
-.form-field textarea[aria-invalid="true"] {
+.order-form__input[aria-invalid="true"],
+.order-form__select[aria-invalid="true"],
+.order-form__textarea[aria-invalid="true"] {
   border-color: var(--color-danger);
 }
 
-.form-actions {
+.order-form__actions {
   display: flex;
   gap: var(--space-md);
   margin-top: var(--space-lg);
