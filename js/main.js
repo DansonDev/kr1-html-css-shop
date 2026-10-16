@@ -13,9 +13,11 @@ orderButtons.forEach((button) => {
   });
 });
 
-closeDialogButton.addEventListener("click", () => {
-  orderDialog.close();
-});
+if (closeDialogButton) {
+  closeDialogButton.addEventListener("click", () => {
+    orderDialog.close();
+  });
+}
 
 const orderForm = document.getElementById("order-form");
 const successMessage = document.getElementById("success-message");
@@ -48,5 +50,7 @@ orderForm.addEventListener("submit", (event) => {
   // Показываем сообщение, очищаем форму и закрываем окно.
   successMessage.hidden = false;
   orderForm.reset();
-  orderDialog.close();
+  if (orderDialog) {
+    orderDialog.close();
+  }
 });
