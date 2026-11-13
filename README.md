@@ -49,8 +49,6 @@
 
 GitHub Pages: https://dansondev.github.io/kr1-html-css-shop/
 
-Репозиторий для сдачи КР №1 в СДО: https://github.com/DansonDev/kr1-html-css-shop
-
 ## Автор
 
 ФИО: Нехорошев Борис Алексеевич
